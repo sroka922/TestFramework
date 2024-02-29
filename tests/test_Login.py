@@ -4,6 +4,8 @@ import time
 import pytest
 from selenium.webdriver.common.by import By
 from datetime import datetime
+from Pages.HomePage import HomePage
+from Pages.LoginPage import LoginPage
 
 
 def generate_email_with_timestamp():
@@ -15,13 +17,14 @@ def generate_email_with_timestamp():
 class TestLogin:
 
     def test_login_with_valid_credentials(self):
-        self.driver.find_element(By.XPATH, "//span[text()='My Account']").click()
-        self.driver.find_element(By.XPATH, "//a[text()='Login']").click()
-        self.driver.find_element(By.ID, "input-email").send_keys("amotooricap@gmail.com")
-        self.driver.find_element(By.ID, "input-password").send_keys("12345")
-        self.driver.find_element(By.CSS_SELECTOR, "input[type=submit].btn").click()
-        assert (self.driver.find_element(By.CSS_SELECTOR, "#content a[href*='account/edit']")
-                .text.__eq__("Edit your account information"))
+        HomePage(self.driver) \
+            .click_on_MyAccount() \
+            .click_on_Login()
+        LoginPage(self.driver) \
+            .input_login("amotooricap@gmail.com") \
+            .input_password("12345") \
+            .click_login()
+        assert LoginPage.myAccount.__eq__("Edit your account information")
 
     def test_login_with_invalid_credentials(self):
         self.driver.find_element(By.XPATH, "//span[text()='My Account']").click()

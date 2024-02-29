@@ -1,6 +1,7 @@
 import pytest
-from selenium import  webdriver
+from selenium import webdriver
 from utilities import ReadConfiguration
+
 
 @pytest.fixture()
 def setup_and_teardown(request):
