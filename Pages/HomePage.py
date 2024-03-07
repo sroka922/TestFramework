@@ -3,6 +3,7 @@ import json
 from selenium.webdriver.common.by import By
 
 from Pages.LoginPage import LoginPage
+from Pages.RegisterPage import RegisterPage
 from Pages.SearchPage import SearchPage
 
 
@@ -15,6 +16,7 @@ class HomePage:
     my_account_dropbown_menu = "//span[text()='My Account']"
     my_account = "//span[text()='My Account']"
     login = "//a[text()='Login']"
+    register = ".dropdown-menu-right > li:nth-of-type(1)"
 
     def enter_product_into_search_box_field(self, product_name):
         self.driver.find_element(By.NAME, self.search_box_field_name).click()
@@ -32,6 +34,10 @@ class HomePage:
 
     def click_on_MyAccount(self):
         self.driver.find_element(By.XPATH, self.my_account).click()
+        return self
+
+    def click_on_register(self):
+        self.driver.find_element(By.CSS_SELECTOR, self.register).click()
         return self
 
     def click_on_Login(self):

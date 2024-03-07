@@ -20,13 +20,20 @@ class RegisterPage:
     newsletter = "input[name='newsletter'][value='1']"
     agree_policy = "agree"
     next = ".btn-primary"
+    alert = ".alert-dismissible"
+
+    firstname_alert = "#input-firstname  + .text-danger"
+    lastname_alert = "#input-lastname+ .text-danger"
+    email_alert = "#input-email+ .text-danger"
+    password_alert = "#input-password+ .text-danger"
 
     def click_and_clear_before_calling(locator_type, locator_value):
         def decorator(method):
             @wraps(method)
             def wrapper(self, *args, **kwargs):
                 element = self.driver.find_element(locator_type, locator_value)
-                element.click().clear()
+                element.click()
+                element.clear()
                 return method(self, *args, **kwargs)
 
             return wrapper
@@ -70,6 +77,21 @@ class RegisterPage:
     def click_continue(self):
         self.driver.find_element(By.CSS_SELECTOR, self.next).click()
         return self
+
+    def display_alert(self):
+        return self.driver.find_element(By.CSS_SELECTOR, self.alert)
+
+    def get_first_name_alert(self):
+        return self.driver.find_element(By.CSS_SELECTOR, self.firstname_alert).text()
+
+    def get_last_name_alert(self):
+        return self.driver.find_element(By.CSS_SELECTOR, self.lastname_alert).text()
+
+    def get_email_alert(self):
+        return self.driver.find_element(By.CSS_SELECTOR, self.email_alert).text()
+
+    def get_password_alert(self):
+        return self.driver.find_element(By.CSS_SELECTOR, self.password_alert).text()
 
 
 def load_credentials_from_json(filename='credentials.json'):
