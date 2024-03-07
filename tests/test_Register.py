@@ -45,7 +45,7 @@ class TestRegister:
         self.driver.find_element(By.NAME, "agree").click()
         self.driver.find_element(By.CSS_SELECTOR, "input[type='submit']").click()
         assert self.driver.find_element(By.CSS_SELECTOR, "#content > h1").is_displayed()
-        assert self.driver.find_element(By.CSS_SELECTOR, "#content > h1").text.__eq__("Your Account Has Been Created!")
+        assert self.driver.find_element(By.CSS_SELECTOR, "#content > h1").text == "Your Account Has Been Created!"
 
     def test_register_with_existing_email(self):
         homePage = HomePage(self.driver)
@@ -63,7 +63,7 @@ class TestRegister:
             .click_continue()
         assert registerPage.display_alert().is_displayed()
         assert (registerPage.display_alert().text
-                .__eq__("Warning: E-Mail Address is already registered!"))
+                == "Warning: E-Mail Address is already registered!")
 
     def test_register_without_providing_any_data(self):
         homePage = HomePage(self.driver)
@@ -79,14 +79,14 @@ class TestRegister:
             .agree_privacy_policy() \
             .subscribe_newsletter() \
             .click_continue()
-        assert (registerPage.get_first_name_alert()
-                .__eq__("First Name must be between 1 and 32 characters!"))
+        assert (registerPage.get_first_name_alert() ==
+                "First Name must be between 1 and 32 characters!")
         assert (registerPage.get_last_name_alert()
-                .__eq__("Last Name must be between 1 and 32 characters!"))
+                == "Last Name must be between 1 and 32 characters!")
         assert (registerPage.get_email_alert()
-                .__eq__("E-Mail Address does not appear to be valid!"))
+                == "E-Mail Address does not appear to be valid!")
         assert (registerPage.get_password_alert()
-                .__eq__("Password must be between 4 and 20 characters!"))
+                == "Password must be between 4 and 20 characters!")
 
     def test_register_with_bad_password_confirmation(self):
         homePage = HomePage(self.driver)
@@ -102,5 +102,5 @@ class TestRegister:
             .agree_privacy_policy() \
             .subscribe_newsletter() \
             .click_continue()
-        assert (self.driver.find_element(By.CSS_SELECTOR, "#input-confirm + .text-danger")
-                .text.__eq__("Password confirmation does not match password!"))
+        assert (registerPage.get_password_confirmation_alert
+                == "Password confirmation does not match password!")

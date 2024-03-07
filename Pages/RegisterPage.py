@@ -26,6 +26,7 @@ class RegisterPage:
     lastname_alert = "#input-lastname+ .text-danger"
     email_alert = "#input-email+ .text-danger"
     password_alert = "#input-password+ .text-danger"
+    password_confirm_alert = "#input-confirm + .text-danger"
 
     def click_and_clear_before_calling(locator_type, locator_value):
         def decorator(method):
@@ -92,6 +93,9 @@ class RegisterPage:
 
     def get_password_alert(self):
         return self.driver.find_element(By.CSS_SELECTOR, self.password_alert).text()
+
+    def get_password_confirmation_alert(self):
+        return self.driver.find_element(By.CSS_SELECTOR, self.password_confirm_alert).text()
 
 
 def load_credentials_from_json(filename='credentials.json'):
