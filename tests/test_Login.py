@@ -4,7 +4,9 @@ import time
 import pytest
 from selenium.webdriver.common.by import By
 from datetime import datetime
-from Pages.HomePage import HomePage
+
+from Pages.AccountPage import AccountPage
+from Pages.HomePage import HomePage, credentials_data
 from Pages.LoginPage import LoginPage
 
 
@@ -22,24 +24,36 @@ class TestLogin:
             .click_on_Login()
         LoginPage(self.driver) \
             .input_login("amotooricap@gmail.com") \
-            .input_password("12345") \
+            .input_password() \
             .click_login()
-        assert LoginPage.myAccount.__eq__("Edit your account information")
+        assert AccountPage.myAccount.__eq__("Edit your account information")
 
     def test_login_with_invalid_credentials(self):
-        self.driver.find_element(By.XPATH, "//span[text()='My Account']").click()
-        self.driver.find_element(By.XPATH, "//a[normalize-space()='Login']").click()
-        self.driver.implicitly_wait(2)
-        self.driver.find_element(By.ID, "input-email").send_keys(generate_email_with_timestamp())
-        self.driver.find_element(By.ID, "input-password").send_keys("12345")
-        self.driver.find_element(By.CSS_SELECTOR, "input[type='submit']").click()
-        self.driver.implicitly_wait(2)
-        assert self.driver.find_element(By.CSS_SELECTOR, "div.alert").is_displayed()
-        time.sleep(2)
+        HomePage(self.driver) \
+            .click_on_MyAccount() \
+            .click_on_Login()
+        login_page = LoginPage(self.driver) \
+            .input_login(generate_email_with_timestamp()) \
+            .input_password() \
+            .click_login()
+        assert login_page.lack_of_credentials() == "Warning: No match for E-Mail Address and/or Password."
+
+    @pytest.mark.parametrize("email,password", credentials_data)
+    def test_login_with_invalid_password(self, email,password):
+        HomePage(self.driver) \
+            .click_on_MyAccount() \
+            .click_on_Login()
+        login_page = LoginPage(self.driver) \
+            .input_login(email) \
+            .input_password(password) \
+            .click_login()
+        assert login_page.lack_of_credentials() == "Warning: No match for E-Mail Address and/or Password."
 
     def test_login_without_any_credentials(self):
-        self.driver.find_element(By.XPATH, "//span[text()='My Account']").click()
-        self.driver.find_element(By.XPATH, "//a[text()='Login']").click()
-        self.driver.find_element(By.CSS_SELECTOR, "input[type=submit].btn").click()
-        assert (self.driver.find_element(By.CSS_SELECTOR, ".alert-dismissible")
-                .text.__eq__("Warning: No match for E-Mail Address and/or Password."))
+        loginPage = HomePage(self.driver) \
+            .click_on_MyAccount() \
+            .click_on_Login()
+        loginPage.input_login("") \
+            .input_Empty_password() \
+            .click_login()
+        assert (loginPage.lack_of_credentials() == "Warning: No match for E-Mail Address and/or Password.")

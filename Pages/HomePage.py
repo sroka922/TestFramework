@@ -1,3 +1,5 @@
+import json
+
 from selenium.webdriver.common.by import By
 
 from Pages.LoginPage import LoginPage
@@ -25,16 +27,23 @@ class HomePage:
         return self
 
     def click_on_account_dropdown_menu(self):
-        self.driver.find_element(By.XPATH,self.my_account_dropbown_menu).click()
+        self.driver.find_element(By.XPATH, self.my_account_dropbown_menu).click()
         return self
 
     def click_on_MyAccount(self):
-        self.driver.find_element(By.XPATH,self.my_account).click()
+        self.driver.find_element(By.XPATH, self.my_account).click()
         return self
 
     def click_on_Login(self):
-        self.driver.find_element(By.XPATH,self.login).click()
-        return self
+        self.driver.find_element(By.XPATH, self.login).click()
+        return LoginPage(self.driver)
 
 
+def load_credentials_from_json(filename='credentials.json'):
+    with open(filename, 'r') as file:
+        data = json.load(file)
+    return [(user['email'], user['password']) for user in data['Credentials']]
 
+
+credentials_path = 'C:\\Users\\kryst\\PycharmProjects\\TestFramework\\configurations\\Credentials.json'
+credentials_data = load_credentials_from_json(credentials_path)
