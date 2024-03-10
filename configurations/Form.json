@@ -1,0 +1,13 @@
+{
+  "FormData": [
+    {"firstname": "Krystian", "lastname": "Sroka", "email": "test@test.pl", "telephone": "1234556788","password": "123456", "confirm": "123456"},
+    {"firstname": "Krystian", "lastname": "Sroka", "email": "test@test.pl", "telephone": "1234556788","password": "123456", "confirm": "123456"},
+    {"firstname": "Krystian", "lastname": "Sroka", "email": "test@test.pl", "telephone": "1234556788","password": "123456", "confirm": "123456"},
+    {"firstname": "Krystian", "lastname": "Sroka", "email": "test@test.pl", "telephone": "1234556788","password": "123456", "confirm": "123456"},
+    {"firstname": "Krystian", "lastname": "Sroka", "email": "test@test.pl", "telephone": "1234556788","password": "123456", "confirm": "123456"},
+    {"firstname": "Krystian", "lastname": "Sroka", "email": "test@test.pl", "telephone": "1234556788","password": "123456", "confirm": "123456"},
+    {"firstname": "Krystian", "lastname": "Sroka", "email": "test@test.pl", "telephone": "1234556788","password": "123456", "confirm": "123456"}
+  ]
+}
+
+

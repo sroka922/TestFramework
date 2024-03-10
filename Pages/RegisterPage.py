@@ -3,9 +3,8 @@ import json
 from selenium.webdriver.common.by import By
 from functools import wraps
 
-from Pages.LoginPage import LoginPage
-from Pages.SearchPage import SearchPage
-from utilities.ReadConfiguration import FILEPATH
+from helpers.TestDataFactory import TestDataFactory
+
 
 
 class RegisterPage:
@@ -99,17 +98,7 @@ class RegisterPage:
         return self.driver.find_element(By.CSS_SELECTOR, self.password_confirm_alert).text()
 
 
-def load_credentials_from_json(filename='credentials.json'):
-    with open(filename, 'r') as file:
-        data = json.load(file)
-    return [(user['email'], user['password']) for user in data['Credentials']]
+factory = TestDataFactory()
+test_data = factory.get_test_data('form')
 
 
-def loadJson(filename='test'):
-    with open(filename, 'r') as file:
-        data = json.load(file)
-    return [(user['email'], user['password']) for user in data['Credentials']]
-
-
-credentials_path = "C:\\Users\\Krystian922\\PycharmProjects\\TestFramework\\configurations\\Credentials.json"
-credentials_data = load_credentials_from_json(credentials_path)
