@@ -2,6 +2,8 @@ import json
 from abc import ABC, abstractmethod
 from json import JSONDecodeError
 
+import os
+
 import configurations
 from helpers.FormUserData import FormUserData
 
@@ -14,7 +16,7 @@ class JsonTestData(ABC):
 
 
 class TestLoginData(JsonTestData):
-    path = "C:\\Users\\Krystian922\\PycharmProjects\\TestFramework\\configurations\\Credentials.json"
+    path = os.path.join(os.path.dirname(__file__), '..', 'configurations', 'Credentials.json')
 
     def get_test_data(self, filename=path):
         try:
@@ -30,7 +32,7 @@ class TestLoginData(JsonTestData):
 
 
 class FormTestData(JsonTestData):
-    path = "C:\\Users\\Krystian922\\PycharmProjects\\TestFramework\\configurations\\Form.json"
+    path = os.path.join(os.path.dirname(__file__), '..', 'configurations', 'Form.json')
 
     def get_test_data(self, filename=path):
         try:
@@ -44,5 +46,3 @@ class FormTestData(JsonTestData):
             return None
         return [FormUserData(user['firstname'], user['lastname'], user['email'], user['telephone'],
                              user['password'], user['confirm']) for user in data['FormData']]
-
-
