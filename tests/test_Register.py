@@ -5,7 +5,8 @@ import pytest
 from selenium.webdriver.common.by import By
 
 from Pages.HomePage import HomePage
-from Pages.RegisterPage import RegisterPage
+from Pages.RegisterPage import RegisterPage, test_data
+from helpers.JsonTestData import TestDataFactory
 
 
 def generate_email_with_timestamp():
@@ -47,7 +48,26 @@ class TestRegister:
         assert self.driver.find_element(By.CSS_SELECTOR, "#content > h1").is_displayed()
         assert self.driver.find_element(By.CSS_SELECTOR, "#content > h1").text == "Your Account Has Been Created!"
 
-    def test_register_with_existing_email(self):
+    @pytest.mark.parametrize("test", test_data)
+    def test_register_with_existing_email(self, test):
+        homePage = HomePage(self.driver)
+        homePage.click_on_MyAccount()
+        homePage.click_on_register()
+        registerPage = (RegisterPage(self.driver)
+                        .input_firstname(test.first_name)
+                        .input_lastname(test.last_name)
+                        .input_email(test.email)
+                        .input_telephone(test.telephone)
+                        .input_password(test.password)
+                        .input_confirm_password(test.confirm_password)
+                        .agree_privacy_policy()
+                        .subscribe_newsletter()
+                        .click_continue())
+        assert registerPage.display_alert().is_displayed()
+        assert (registerPage.display_alert().text
+                == "Warning: E-Mail Address is already registered!")
+
+    def test_register_parametrized(self):
         homePage = HomePage(self.driver)
         homePage.click_on_MyAccount()
         homePage.click_on_register()
