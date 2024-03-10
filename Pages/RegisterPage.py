@@ -5,6 +5,7 @@ from functools import wraps
 
 from Pages.LoginPage import LoginPage
 from Pages.SearchPage import SearchPage
+from utilities.ReadConfiguration import FILEPATH
 
 
 class RegisterPage:
@@ -110,5 +111,5 @@ def loadJson(filename='test'):
     return [(user['email'], user['password']) for user in data['Credentials']]
 
 
-credentials_path = 'C:\\Users\\kryst\\PycharmProjects\\TestFramework\\configurations\\Credentials.json'
+credentials_path = "C:\\Users\\Krystian922\\PycharmProjects\\TestFramework\\configurations\\Credentials.json"
 credentials_data = load_credentials_from_json(credentials_path)

@@ -45,16 +45,11 @@ class HomePage:
         return LoginPage(self.driver)
 
 
-def load_credentials_from_json(filename='credentials.json'):
+def load_credentials_from_json(filename='Credentials.json'):
     with open(filename, 'r') as file:
         data = json.load(file)
     return [(user['email'], user['password']) for user in data['Credentials']]
 
 
-def loadJson(filename='test'):
-    with open(filename,'r') as file:
-        data = json.load(file)
-    return [(user['email'], user['password']) for user in data['Credentials']]
-
-credentials_path = 'C:\\Users\\kryst\\PycharmProjects\\TestFramework\\configurations\\Credentials.json'
+credentials_path = "C:\\Users\\Krystian922\\PycharmProjects\\TestFramework\\configurations\\Credentials.json"
 credentials_data = load_credentials_from_json(credentials_path)
