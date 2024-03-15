@@ -98,7 +98,6 @@ class RegisterPage:
         return self.driver.find_element(By.CSS_SELECTOR, self.password_confirm_alert).text()
 
 
-factory = TestDataFactory()
-test_data = factory.get_test_data('form')
+test_data = TestDataFactory.get_test_data('form')
 
 

@@ -39,9 +39,9 @@ class FormTestData(JsonTestData):
                 data = json.load(file)
         except FileNotFoundError:
             print(f"File{self.path} not found")
-            return None
+            return []
         except JSONDecodeError:
             print(f"JSON Error")
-            return None
+            return []
         return [FormUserData(user['firstname'], user['lastname'], user['email'], user['telephone'],
                              user['password'], user['confirm']) for user in data['FormData']]
