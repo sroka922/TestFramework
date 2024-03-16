@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from Pages.LoginPage import LoginPage
 from Pages.RegisterPage import RegisterPage
 from Pages.SearchPage import SearchPage
+from helpers.TestDataFactory import TestDataFactory
 
 
 class HomePage:
@@ -51,5 +52,5 @@ def load_credentials_from_json(filename='Credentials.json'):
     return [(user['email'], user['password']) for user in data['Credentials']]
 
 
-credentials_path = "C:\\Users\\Krystian922\\PycharmProjects\\TestFramework\\configurations\\Credentials.json"
-credentials_data = load_credentials_from_json(credentials_path)
+login_data = TestDataFactory.get_test_data('login')
+credentials_data = login_data

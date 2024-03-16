@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from datetime import datetime
 
 from Pages.AccountPage import AccountPage
-from Pages.HomePage import HomePage, credentials_data
+from Pages.HomePage import HomePage, credentials_data, login_data
 from Pages.LoginPage import LoginPage
 
 
@@ -38,7 +38,7 @@ class TestLogin:
             .click_login()
         assert login_page.lack_of_credentials() == "Warning: No match for E-Mail Address and/or Password."
 
-    @pytest.mark.parametrize("email,password", credentials_data)
+    @pytest.mark.parametrize("email,password", login_data)
     def test_login_with_invalid_password(self, email,password):
         HomePage(self.driver) \
             .click_on_MyAccount() \
